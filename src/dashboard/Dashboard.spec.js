@@ -1,6 +1,5 @@
 import React from "react";
-import { render, fireEvent, cleanup } from "react-testing-library";
-import renderer from "react-test-renderer";
+import { render } from "react-testing-library";
 import "react-testing-library/cleanup-after-each";
 
 import Dashboard from "./Dashboard";
@@ -10,5 +9,11 @@ describe("<Dashboard />", () => {
     render(<Dashboard />);
   });
 
-  it("shows controls and display", () => {});
+  it("shows controls and display", () => {
+    const { getByText } = render(<Dashboard />);
+    getByText(/unlocked/i);
+    getByText(/open/i);
+    getByText(/lock gate/i);
+    getByText(/close gate/i);
+  });
 });
