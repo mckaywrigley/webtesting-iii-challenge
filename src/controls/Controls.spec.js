@@ -5,4 +5,16 @@ import "react-testing-library/cleanup-after-each";
 
 import Controls from "./Controls";
 
-describe("<Controls />", () => {});
+describe("<Controls />", () => {
+  it("displays component", () => {
+    render(<Controls />);
+  });
+
+  it("renders closed and locked toggle buttons", () => {});
+
+  it("toggles closed and locked status when clicked", () => {});
+
+  it("disables closed button if closed", () => {});
+
+  it("disables locked button if open", () => {});
+});
