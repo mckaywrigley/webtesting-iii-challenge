@@ -1,7 +1,7 @@
 import React from "react";
-import { render, fireEvent, cleanup } from "react-testing-library";
-import renderer from "react-test-renderer";
+import { render, fireEvent } from "react-testing-library";
 import "react-testing-library/cleanup-after-each";
+import "jest-dom/extend-expect";
 
 import Controls from "./Controls";
 
@@ -10,11 +10,36 @@ describe("<Controls />", () => {
     render(<Controls />);
   });
 
-  it("renders closed and locked toggle buttons", () => {});
+  it("renders closed and locked toggle buttons", () => {
+    const { getByText } = render(<Controls />);
 
-  it("toggles closed and locked status when clicked", () => {});
+    getByText(/close gate/i);
+    getByText(/lock gate/i);
+  });
 
-  it("disables closed button if closed", () => {});
+  it("toggles closed and locked status when clicked", () => {
+    const toggleClosed = jest.fn();
+    const { getByText } = render(<Controls toggleClosed={toggleClosed} />);
 
-  it("disables locked button if open", () => {});
+    const button = getByText(/close gate/i);
+    fireEvent.click(button);
+
+    expect(toggleClosed).toBeCalledTimes(1);
+  });
+
+  it("disables open/closed button if locked", () => {
+    const { getByText } = render(<Controls locked={true} />);
+
+    const button = getByText(/close gate/i);
+
+    expect(button).toBeDisabled();
+  });
+
+  it("disables lock/unlock button if open", () => {
+    const { getByText } = render(<Controls closed={false} />);
+
+    const button = getByText(/lock gate/i);
+
+    expect(button).toBeDisabled();
+  });
 });
