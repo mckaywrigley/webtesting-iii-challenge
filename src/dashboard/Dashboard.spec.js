@@ -5,4 +5,10 @@ import "react-testing-library/cleanup-after-each";
 
 import Dashboard from "./Dashboard";
 
-describe("<Dashboard />", () => {});
+describe("<Dashboard />", () => {
+  it("displays component", () => {
+    render(<Dashboard />);
+  });
+
+  it("shows controls and display", () => {});
+});
